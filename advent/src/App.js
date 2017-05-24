@@ -1,21 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import WPAPI from 'wpapi';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+	constructor(props) {
+		super(props);
+
+		this.state = {
+		};
+
+		// this._searchTextChange = this._searchTextChange.bind(this);
+		// this._handleSearch = this._handleSearch.bind(this);
+	}
+
+	componentDidMount() {
+		var wp = new WPAPI({
+			endpoint: 'http://localhost:8000/wp-json',
+			username: 'admin',
+			password: 'Password!'
+		});
+
+		wp.posts().slug('index').then((response) => {
+			console.log(response);
+		})
+	}
+
+	render() {
+
+
+		return (
+			<div className="App">
+				<div className="App-header">
+					<h2>Welcome to React</h2>
+				</div>
+				<p className="App-content">
+
+				</p>
+			</div>
+		);
+	}
 }
 
 export default App;
