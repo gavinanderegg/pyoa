@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import WPAPI from 'wpapi';
 import './App.css';
+
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+)
 
 class App extends Component {
 	constructor(props) {
@@ -25,18 +32,22 @@ class App extends Component {
 		})
 	}
 
+
+
 	render() {
 
 
 		return (
-			<div className="App">
-				<div className="App-header">
-					<h2>Welcome to React</h2>
-				</div>
-				<p className="App-content">
+			<Router>
+				<div className="App">
+					<div className="App-header">
+						<h2>Welcome to React</h2>
+					</div>
+					<div className="App-content">
 
-				</p>
-			</div>
+					</div>
+				</div>
+			</Router>
 		);
 	}
 }
