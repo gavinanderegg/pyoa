@@ -16,7 +16,9 @@ class App extends Component {
 
 
 	componentDidMount() {
+		// We're on the index page, show the index post.
 		if (window.location.pathname === '/') {
+			// Obvs, but: don't do this in production.
 			var wp = new WPAPI({
 				endpoint: 'http://localhost:8000/wp-json',
 				username: 'admin',
@@ -28,8 +30,9 @@ class App extends Component {
 					content: response[0].content.rendered
 				})
 			});
-		} else {
-			// window.location.pathname.slice(1).split('/').pop()
+		} else if (window.location.pathname.startsWith('/add/')) {
+			var lastSlug = window.location.pathname.slice(1).split('/').pop();
+
 		}
 	}
 
