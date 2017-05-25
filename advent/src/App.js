@@ -15,6 +15,7 @@ class App extends Component {
 
 		this.state = {
 			page: '',
+			title: '',
 			content: '',
 			wp: wp,
 		};
@@ -23,19 +24,16 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-
-
 		var lastSlug;
 
 		// We're on the index page, show the index post.
 		if (window.location.pathname === '/') {
-			console.log('here somehow');
-
 			// Obvs, but: don't do this in production.
 			this.state.wp.posts().slug('index').then((response) => {
 				this.setState({
 					page: 'index',
-					content: response[0].content.rendered
+					title: response[0].title.rendered,
+					content: response[0].content.rendered,
 				});
 			});
 		} else if (window.location.pathname.startsWith('/add/')) {
@@ -45,19 +43,13 @@ class App extends Component {
 				page: '--add--',
 				content: lastSlug,
 			});
-		} else if (window.location.pathname.startsWith('/save/')) {
-			lastSlug = window.location.pathname.slice(1).split('/').pop();
-
-			this.setState({
-				page: '--save--',
-				content: lastSlug,
-			});
 		} else {
 			lastSlug = window.location.pathname.slice(1).split('/').pop();
 
 			this.state.wp.posts().slug(lastSlug).then((response) => {
 				this.setState({
 					page: lastSlug,
+					title: response[0].title.rendered,
 					content: response[0].content.rendered,
 				});
 			});
@@ -67,35 +59,29 @@ class App extends Component {
 	_addChoice(e) {
 		e.preventDefault();
 
-		console.log('upy!');
-
 		var elements = findDOMNode(this.refs.form).elements;
-
-		console.log(elements.content.value + ' ' + elements.title.value);
 
 		this.state.wp.posts().create({
 			title: elements.title.value,
 			content: elements.content.value,
 			status: 'publish',
-			excerpt: 'yoyoyoyoyo',
 		}).then((response) => {
-			console.log(response.id);
+			this.state.wp.posts().slug(this.state.content).update({
+				excerpt: response.excerpt + "\n" + elements.title.value + ' | ' + elements.path.value + ' | ' + response.slug,
+			});
 		});
-
-
-		debugger;
 	}
 
 	render() {
 		var addURL;
 
-		if (this.state.page  && this.state.page !== '--add--' && this.state.page !== '--save--') {
+		if (this.state.page  && this.state.page !== '--add--') {
 			addURL = '/add/' + this.state.page;
 
 			return (
 				<div className="App">
 					<div className="App-header">
-						<h2>Welcome to React</h2>
+						<h2>{this.state.title}</h2>
 					</div>
 					<div className="App-content">
 						<div className="App-text" dangerouslySetInnerHTML={{__html: this.state.content}}></div>
@@ -109,8 +95,6 @@ class App extends Component {
 				</div>
 			);
 		} else if (this.state.page === '--add--') {
-			addURL = '/save/' + this.state.content;
-
 			return (
 				<div className="App">
 					<div className="App-header">
@@ -122,6 +106,9 @@ class App extends Component {
 								<input name="title" ref="formTitle" type="text"/>
 							</div>
 							<div>
+								<input name="path" ref="formPath" type="text"/>
+							</div>
+							<div>
 								<textarea name="content" ref="formContent"></textarea>
 							</div>
 							<div>
@@ -131,9 +118,6 @@ class App extends Component {
 					</div>
 				</div>
 			);
-		} else if (this.state.page === '--save--') {
-			console.log('Saving');
-
 		} else {
 			return null;
 		}
