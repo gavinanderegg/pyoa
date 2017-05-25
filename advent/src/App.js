@@ -77,10 +77,7 @@ class App extends Component {
 			title: elements.title.value,
 			content: elements.content.value,
 			status: 'publish',
-			meta: {
-				name: 'hi',
-				value: 'there',
-			}
+			excerpt: 'yoyoyoyoyo',
 		}).then((response) => {
 			console.log(response.id);
 		});
