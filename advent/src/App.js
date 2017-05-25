@@ -7,20 +7,23 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
+		var wp = new WPAPI({
+			endpoint: 'http://localhost:8000/wp-json',
+			username: 'admin',
+			password: 'Password!'
+		});
+
 		this.state = {
 			page: '',
 			content: '',
+			wp: wp,
 		};
 
 		this._addChoice = this._addChoice.bind(this);
 	}
 
 	componentDidMount() {
-		var wp = new WPAPI({
-			endpoint: 'http://localhost:8000/wp-json',
-			username: 'admin',
-			password: 'Password!'
-		});
+
 
 		var lastSlug;
 
@@ -29,7 +32,7 @@ class App extends Component {
 			console.log('here somehow');
 
 			// Obvs, but: don't do this in production.
-			wp.posts().slug('index').then((response) => {
+			this.state.wp.posts().slug('index').then((response) => {
 				this.setState({
 					page: 'index',
 					content: response[0].content.rendered
@@ -52,7 +55,7 @@ class App extends Component {
 		} else {
 			lastSlug = window.location.pathname.slice(1).split('/').pop();
 
-			wp.posts().slug(lastSlug).then((response) => {
+			this.state.wp.posts().slug(lastSlug).then((response) => {
 				this.setState({
 					page: lastSlug,
 					content: response[0].content.rendered,
@@ -69,6 +72,19 @@ class App extends Component {
 		var elements = findDOMNode(this.refs.form).elements;
 
 		console.log(elements.content.value + ' ' + elements.title.value);
+
+		this.state.wp.posts().create({
+			title: elements.title.value,
+			content: elements.content.value,
+			status: 'publish',
+			meta: {
+				name: 'hi',
+				value: 'there',
+			}
+		}).then((response) => {
+			console.log(response.id);
+		});
+
 
 		debugger;
 	}
