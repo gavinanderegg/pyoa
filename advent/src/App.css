@@ -30,10 +30,15 @@ body {
 	border-top: 1px solid #CCC;
 }
 
+.App-choices div {
+	display: inline-block;
+	padding: 12px;
+}
+
 .App-choices a {
 	display: inline-block;
-	padding: 12px 18px;
-	background: #CCE;
+	padding: 12px;
+	background: #EEF;
 }
 
 .App-add {
@@ -46,4 +51,32 @@ body {
 	display: inline-block;
 	padding: 12px 18px;
 	background: #CCE;
+}
+
+.App-addform {
+	max-width: 320px;
+	margin: auto;
+}
+
+.App-addform input, .App-addform textarea {
+	width: 320px;
+	font-size: 18px;
+}
+
+.App-addform textarea {
+	height: 120px;
+}
+
+.App-addform div {
+	padding: 16px 24px;
+}
+
+.App-addform input[type=submit] {
+	display: inline-block;
+	padding: 12px 18px;
+	background: #CCE;
+}
+
+.App-addform label {
+	display: block;
 }

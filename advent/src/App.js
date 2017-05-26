@@ -139,20 +139,22 @@ class App extends Component {
 						<h2>Add a new choice</h2>
 					</div>
 					<div className="App-content">
-						<form onSubmit={this._addChoice} ref="form">
-							<div>
-								Title: <input name="title" ref="formTitle" type="text"/>
-							</div>
-							<div>
-								Path: <input name="path" ref="formPath" type="text"/>
-							</div>
-							<div>
-								Content: <textarea name="content" ref="formContent"></textarea>
-							</div>
-							<div>
-								<input type="submit" />
-							</div>
-						</form>
+						<div className="App-addform">
+							<form onSubmit={this._addChoice} ref="form">
+								<div>
+									<label htmlFor="formTitle">Title</label> <input id="formTitle" name="title" ref="formTitle" type="text"/>
+								</div>
+								<div>
+									<label htmlFor="formPath">Path</label> <input id="formPath" name="path" ref="formPath" type="text"/>
+								</div>
+								<div>
+									<label htmlFor="formContent">Content</label> <textarea id="formContent" name="content" ref="formContent"></textarea>
+								</div>
+								<div>
+									<input type="submit" />
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			);
