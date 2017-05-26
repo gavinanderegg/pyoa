@@ -98,6 +98,10 @@ class App extends Component {
 		var choiceLines = excerpt.split("\n");
 
 		var choices = choiceLines.map((line, index) => {
+			if (line === '---') {
+				return false;
+			}
+
 			var choiceItems = line.split(' | ');
 			var choiceHref = '/' + choiceItems[2];
 
