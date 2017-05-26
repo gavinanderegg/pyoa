@@ -57,7 +57,7 @@ class App extends Component {
 
 			this.state.wp.posts().slug(slug).then((response) => {
 				this.setState({
-					id: id,
+					id: response[0].id,
 					page: slug,
 					title: response[0].title.rendered,
 					excerpt: response[0].excerpt.rendered,
@@ -126,8 +126,8 @@ class App extends Component {
 						<div className="App-choices">
 							{choices}
 						</div>
-						<div>
-							<a href={addURL}>Add a choice</a>
+						<div className="App-add">
+							<a href={addURL} className="App-addButton">Add a choice</a>
 						</div>
 					</div>
 				</div>

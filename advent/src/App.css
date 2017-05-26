@@ -1,3 +1,7 @@
+body {
+	background: #EEE;
+}
+
 .App {
 	text-align: left;
 }
@@ -12,7 +16,34 @@
 .App-content {
 	margin: auto;
 	max-width: 980px;
-	padding: 24px;
-	font-size: large;
+	padding: 24px 24px 48px 24px;
+	background: #FFF;
+	font-size: 18px;
 }
 
+.App-text {
+	padding: 24px 24px 48px 24px;
+}
+
+.App-choices {
+	padding: 24px;
+	border-top: 1px solid #CCC;
+}
+
+.App-choices a {
+	display: inline-block;
+	padding: 12px 18px;
+	background: #CCE;
+}
+
+.App-add {
+	padding-top: 48px;
+	border-top: 1px solid #CCC;
+	text-align: center;
+}
+
+.App-addButton {
+	display: inline-block;
+	padding: 12px 18px;
+	background: #CCE;
+}
