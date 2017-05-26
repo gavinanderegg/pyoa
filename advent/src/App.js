@@ -53,8 +53,7 @@ class App extends Component {
 				});
 			});
 		} else {
-			id = window.location.pathname.slice(1).split('/')[1];
-			slug = window.location.pathname.slice(1).split('/')[2];
+			slug = window.location.pathname.slice(1).split('/')[0];
 
 			this.state.wp.posts().slug(slug).then((response) => {
 				this.setState({
