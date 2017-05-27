@@ -7,6 +7,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
+		// Obvs, but: don't do this in production.
 		var wp = new WPAPI({
 			endpoint: 'http://localhost:8000/wp-json',
 			username: 'admin',
@@ -30,7 +31,6 @@ class App extends Component {
 
 		// We're on the index page, show the index post.
 		if (window.location.pathname === '/') {
-			// Obvs, but: don't do this in production.
 			this.state.wp.posts().slug('index').then((response) => {
 				this.setState({
 					page: 'index',
@@ -146,10 +146,10 @@ class App extends Component {
 						<div className="App-addform">
 							<form onSubmit={this._addChoice} ref="form">
 								<div>
-									<label htmlFor="formTitle">Title</label> <input id="formTitle" name="title" ref="formTitle" type="text"/>
+									<label htmlFor="formPath">Path</label> <input id="formPath" name="path" ref="formPath" type="text"/>
 								</div>
 								<div>
-									<label htmlFor="formPath">Path</label> <input id="formPath" name="path" ref="formPath" type="text"/>
+									<label htmlFor="formTitle">Title</label> <input id="formTitle" name="title" ref="formTitle" type="text"/>
 								</div>
 								<div>
 									<label htmlFor="formContent">Content</label> <textarea id="formContent" name="content" ref="formContent"></textarea>
